@@ -2,15 +2,9 @@ import { Form } from "./Form/Form";
 import { nanoid } from 'nanoid';
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux'
-import { add } from "redux/slice";
+import { useState,useEffect } from "react";
 
-export function App() {
-  const contactList = useSelector(state => state.clicks)
-  const dispatch = useDispatch();
-  console.log("💙 ~ contactList:", contactList);
-  console.log("💙 ~ add:", add({ id: 'id-1', name: 'Volodymyr Zelenskyi', number: '+380-459-12-5678' }));
+export function App () {
   const [filter, setFilter] = useState('');
   const[contacts, setContacts] = useState(()=>JSON.parse(localStorage.getItem('contacts')) || [
     { id: 'id-1', name: 'Volodymyr Zelenskyi', number: '+380-459-12-5678' },
@@ -56,10 +50,7 @@ export function App() {
       <Form createContacts={createContacts} />
       <h2>Contacts</h2>
     <Filter handleChange={handleChange} />
-    <ContactList deleteItem={handleDelete} filterList={() => filteredContacts()} />
-    <ul>
-      {contactList.map(contact => <li key={contact.id}>{contact.name}</li>)}
-    </ul>
+    <ContactList deleteItem={handleDelete} filterList={()=>filteredContacts()}  />
   </>
 }
   
