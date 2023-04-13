@@ -3,8 +3,10 @@ import { nanoid } from 'nanoid';
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
 import { useState,useEffect } from "react";
-
-export function App () {
+import { useSelector } from "react-redux/es/exports";
+export function App() {
+  const store = useSelector(state=>state)
+  console.log("🚀 ~ store:", store)
   const [filter, setFilter] = useState('');
   const[contacts, setContacts] = useState(()=>JSON.parse(localStorage.getItem('contacts')) || [
     { id: 'id-1', name: 'Volodymyr Zelenskyi', number: '+380-459-12-5678' },
