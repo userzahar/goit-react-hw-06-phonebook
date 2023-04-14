@@ -2,7 +2,10 @@ import { Form } from "./Form/Form";
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import { addContact, deleteContact, filterContacts } from "redux/actions";
+import { filterContacts } from "redux/filter/actions";
+
+import { addContact, deleteContact } from "redux/contacts/actions";
+
 
 export function App() {
   const dispatch = useDispatch();
