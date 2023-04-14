@@ -1,37 +1,29 @@
 import { Form } from "./Form/Form";
-import { nanoid } from 'nanoid';
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
 import { useDispatch, useSelector } from "react-redux/es/exports";
+import { addContact, deleteContact, filterContacts } from "redux/actions";
 
 export function App() {
   const dispatch = useDispatch();
-  const {filter, contacts} = useSelector(state => state);
+  const { filter } = useSelector(state => state.filter);
+  const { contacts } = useSelector(state => state.contacts);
   const createContacts = (data) => {
     if (contacts.find(contact => contact.name === data.name)) {
       alert(`${data.name} is alredy in contacts`)
       return false;
     } else {
-      dispatch(
-        {
-          type: 'contacts/add',
-          payload: {
-            id: nanoid(),
-            name: data.name,
-            number: data.number,
-          }
-        }
-      )
+      dispatch(addContact(data))
     }
   }
   const handleChange = ({ target }) => {
     const { name, value } = target;
     if (name === "filter") {
-      dispatch({ type: 'contacts/filter', payload: value })
+      dispatch(filterContacts(value))
     }
 
   }
-  const filteredContacts =()=> {
+  const filteredContacts = () => {
         if (!filter.length) {
             return contacts;
         }
@@ -40,12 +32,7 @@ export function App() {
         })
   }
   const handleDelete = (id) => {
-    dispatch({
-    type: 'contacts/remove',
-    payload: {
-      id: id,
-    },
-  })
+    dispatch(deleteContact(id))
   }        
   //  useEffect(() => {
 
