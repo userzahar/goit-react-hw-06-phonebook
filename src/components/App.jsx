@@ -2,31 +2,32 @@ import { Form } from "./Form/Form";
 import { nanoid } from 'nanoid';
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
-import { useState,useEffect } from "react";
-import { useSelector } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux/es/exports";
+
 export function App() {
-  const store = useSelector(state=>state)
-  console.log("🚀 ~ store:", store)
-  const [filter, setFilter] = useState('');
-  const[contacts, setContacts] = useState(()=>JSON.parse(localStorage.getItem('contacts')) || [
-    { id: 'id-1', name: 'Volodymyr Zelenskyi', number: '+380-459-12-5678' },
-    { id: 'id-2', name: 'Petro Poroshenko', number: '+380-443-89-1256' },
-    { id: 'id-3', name: 'Viktor Yushchenko', number: '+380-645-17-7943' }])
-  
+  const dispatch = useDispatch();
+  const {filter, contacts} = useSelector(state => state);
   const createContacts = (data) => {
     if (contacts.find(contact => contact.name === data.name)) {
       alert(`${data.name} is alredy in contacts`)
       return false;
     } else {
-      setContacts((prev) => {
-        return [{ id: nanoid(), name: data.name, number: data.number }, ...prev] 
-      })
+      dispatch(
+        {
+          type: 'contacts/add',
+          payload: {
+            id: nanoid(),
+            name: data.name,
+            number: data.number,
+          }
+        }
+      )
     }
   }
   const handleChange = ({ target }) => {
     const { name, value } = target;
     if (name === "filter") {
-      setFilter(value)
+      dispatch({ type: 'contacts/filter', payload: value })
     }
 
   }
@@ -39,13 +40,18 @@ export function App() {
         })
   }
   const handleDelete = (id) => {
-    return setContacts(() => contacts.filter(contact => contact.id !== id));
+    dispatch({
+    type: 'contacts/remove',
+    payload: {
+      id: id,
+    },
+  })
   }        
-   useEffect(() => {
+  //  useEffect(() => {
 
-    localStorage.setItem('contacts', JSON.stringify(contacts))
+  //   localStorage.setItem('contacts', JSON.stringify(contacts))
 
-  }, [contacts])
+  // }, [contacts])
   
   return <>
       <h1>Phonebook</h1>
