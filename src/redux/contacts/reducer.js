@@ -12,7 +12,7 @@ export function contactsReducer(state = initialState, action) {
       return {
         ...state,
         contacts: [
-          ...state.contacts.filter(contact => contact.id !== action.payload.id),
+          ...state.contacts.filter(contact => contact.id !== action.payload),
         ],
       };
     default:
