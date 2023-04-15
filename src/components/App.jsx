@@ -16,6 +16,8 @@ export function App() {
       alert(`${data.name} is alredy in contacts`)
       return false;
     } else {
+      console.log("💥", data);
+      
       dispatch(addContact(data))
     }
   }

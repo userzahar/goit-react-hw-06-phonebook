@@ -24,7 +24,8 @@ export function Form({ createContacts }) {
         e.preventDefault();
         let cteateContact = createContacts({
             name: name,
-            number: number
+            number: number,
+            id:nanoid(),
         })
         if (cteateContact === undefined) {
            reset();

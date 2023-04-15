@@ -1,14 +1,23 @@
 import { initialState } from 'redux/initialState';
-import { CONTACTS_FILTER } from './types';
+import { createReducer } from '@reduxjs/toolkit';
+import { filterContacts } from './actions';
 
-export function filterReducer(state = initialState, action) {
-  switch (action.type) {
-    case CONTACTS_FILTER:
-      return {
-        ...state,
-        filter: action.payload,
-      };
-    default:
-      return state;
-  }
-}
+export const filterReducer = createReducer(initialState, {
+  [filterContacts]: (state, action) => {
+    return { ...state, filter: action.payload };
+  },
+});
+
+// export function filterReducer(state = initialState, action) {
+//   console.log('🚀 ~ action:', action);
+
+//   switch (action.type) {
+//     case CONTACTS_FILTER:
+//       return {
+//         ...state,
+//         filter: action.payload,
+//       };
+//     default:
+//       return state;
+//   }
+// }
