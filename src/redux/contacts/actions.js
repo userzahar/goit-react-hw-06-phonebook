@@ -1,8 +1,8 @@
-import { CONTACTS_REMOVE, CONTACTS_ADD } from './types';
 import { createAction } from '@reduxjs/toolkit';
 
-export const deleteContact = createAction(CONTACTS_REMOVE);
-export const addContact = createAction(CONTACTS_ADD);
+export const deleteContact = createAction('CONTACTS_REMOVE');
+export const addContact = createAction('CONTACTS_ADD');
+
 // export const addContact = data => ({
 //   type: CONTACTS_ADD,
 //   payload: {

@@ -1,8 +1,7 @@
 import { initialState } from 'redux/initialState';
-import { CONTACTS_REMOVE, CONTACTS_ADD } from './types';
 import { createReducer } from '@reduxjs/toolkit';
-
 import { deleteContact, addContact } from './actions';
+
 export const contactsReducer = createReducer(initialState, {
   [addContact]: (state, action) => ({
     ...state,
