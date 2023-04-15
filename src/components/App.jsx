@@ -2,8 +2,7 @@ import { Form } from "./Form/Form";
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import { filterContacts } from "redux/filter/actions";
-
+import { filterContacts } from "redux/filter/filterSlice";
 import { addContact, deleteContact } from "redux/contacts/actions";
 
 
@@ -29,7 +28,7 @@ export function App() {
 
   }
   const filteredContacts = () => {
-        if (!filter.length) {
+        if (!filter?.length) {
             return contacts;
         }
         return contacts.filter(({name}) => {

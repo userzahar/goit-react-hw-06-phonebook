@@ -2,7 +2,7 @@ import { initialState } from 'redux/initialState';
 import { createReducer } from '@reduxjs/toolkit';
 import { filterContacts } from './actions';
 
-export const filterReducer = createReducer(initialState, {
+const filterReducer = createReducer(initialState, {
   [filterContacts]: (state, action) => {
     return { ...state, filter: action.payload };
   },
