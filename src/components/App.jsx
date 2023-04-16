@@ -24,8 +24,6 @@ export function App() {
       return false;
     } else {
       console.log("💥", data);
-      console.log("🚀💚🧡", dispatch(addContact(data)))
-      
       dispatch(addContact(data))
     }
   }
