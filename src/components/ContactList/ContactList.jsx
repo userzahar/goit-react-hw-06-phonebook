@@ -3,10 +3,10 @@ import { LI } from "./ListItem";
 import { ListStyled } from "./StyledContactList";
 import PropTypes from "prop-types";
 export function ContactList({ filterList, deleteItem }) {
-    console.log("🚀 ~ filterList:", filterList)
+    console.log("🚀 ~ filterList:", filterList())
     
         return <ListStyled>
-            {filterList().map((contact) => (
+            {filterList()?.map((contact) => (
                 <LI key={contact.id} contact={contact}>
                     <Button text="Delete" clickHeandler={()=>deleteItem(contact.id)}/>
                 </LI>)

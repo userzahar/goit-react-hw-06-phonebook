@@ -3,19 +3,28 @@ import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { filterContacts } from "redux/filter/filterSlice";
-import { addContact, deleteContact } from "redux/contacts/actions";
+import { addContact, deleteContact } from "redux/contacts/contactSlice";
 
 
 export function App() {
   const dispatch = useDispatch();
-  const { filter } = useSelector(state => state.filter);
-  const { contacts } = useSelector(state => state.contacts);
+  const { filter } = useSelector(state => {
+     console.log("🚀 ~ state:", state.filter)
+    return state.filter
+  });
+
+  console.log("💦 ~ filter:", filter)
+
+  const { contacts } = useSelector(state => state);
+  console.log("💢 ~ contacts:", contacts)
+  
   const createContacts = (data) => {
     if (contacts.find(contact => contact.name === data.name)) {
       alert(`${data.name} is alredy in contacts`)
       return false;
     } else {
       console.log("💥", data);
+      console.log("🚀💚🧡", dispatch(addContact(data)))
       
       dispatch(addContact(data))
     }
@@ -28,10 +37,11 @@ export function App() {
 
   }
   const filteredContacts = () => {
+
         if (!filter?.length) {
             return contacts;
         }
-        return contacts.filter(({name}) => {
+        return contacts?.filter(({name}) => {
       return name.toLowerCase().indexOf(filter.toLowerCase()) > -1;
         })
   }
@@ -52,4 +62,6 @@ export function App() {
     <ContactList deleteItem={handleDelete} filterList={()=>filteredContacts()}  />
   </>
 }
+ 
+
   
