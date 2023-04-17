@@ -3,12 +3,26 @@ import { LabelStyled } from "components/Filter/FilterStyled";
 import { nanoid } from "nanoid";
 import { useState } from "react";
 import { InputStyled } from "./StyledInput";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "redux/contacts/contactSlice";
 
-export function Form({ createContacts }) {
+export function Form() {
+    const { contacts } = useSelector(state => state.contacts);
     const [name, setName] = useState('');
-    const [number, setNumber] = useState('')
+    const [number, setNumber] = useState('');
+    const dispatch = useDispatch();
+    // !________________________________
+    const createContacts = (data) => {
 
+    if (contacts.find(contact => contact.name === data.name)) {
+      alert(`${data.name} is alredy in contacts`)
+      return false;
+    } else {
+      console.log("💥", data);
+      dispatch(addContact(data))
+    }
+    }
+    // ! -------------------------
     const inputId = nanoid();
     const inputIdNew = nanoid();
     const handleChange = ({ target }) => {
@@ -20,6 +34,7 @@ export function Form({ createContacts }) {
             default: ;
         }
     }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         let cteateContact = createContacts({
@@ -27,10 +42,13 @@ export function Form({ createContacts }) {
             number: number,
             id:nanoid(),
         })
+
         if (cteateContact === undefined) {
            reset();
         }
+
     }
+
      function reset()  {
          setName('');
          setNumber('');
@@ -63,8 +81,4 @@ export function Form({ createContacts }) {
         </form>
 
     
-}
-
-Form.propTypes = {
-    createContacts:PropTypes.func.isRequired,
 }
