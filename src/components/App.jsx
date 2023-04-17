@@ -9,13 +9,13 @@ import { addContact, deleteContact } from "redux/contacts/contactSlice";
 export function App() {
   const dispatch = useDispatch();
   const { filter } = useSelector(state => {
-     console.log("🚀 ~ state:", state.filter)
+     console.log("🚀 ~ state:", state)
     return state.filter
   });
 
   console.log("💦 ~ filter:", filter)
 
-  const { contacts } = useSelector(state => state);
+  const { contacts } = useSelector(state => state.contacts);
   console.log("💢 ~ contacts:", contacts)
   
   const createContacts = (data) => {
